@@ -1,0 +1,18 @@
+quarkus:
+  application:
+    name:
+      high-stack-quarkus
+  http:
+    port: ${APPLICATION_PORT:8080}
+
+  datasource:
+    devservices:
+      enabled: true
+    db-kind: postgresql
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/test-db
+    username: myuser
+    password: mypassword
+
+greeting:
+  message: "hello"
