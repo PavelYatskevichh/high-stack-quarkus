@@ -1,4 +1,4 @@
-package com.yatskevich;
+package com.yatskevich.hs.quarkus.content_creation;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 

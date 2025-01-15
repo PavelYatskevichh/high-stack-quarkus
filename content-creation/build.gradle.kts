@@ -1,6 +1,13 @@
 plugins {
     java
     id("io.quarkus")
+    id("org.flywaydb.flyway")
+}
+
+buildscript {
+    dependencies {
+        classpath("org.flywaydb:flyway-database-postgresql:${properties["flywayPluginVersion"]}")
+    }
 }
 
 group = "com.yatskevich"
@@ -23,6 +30,7 @@ val quarkusPlatformVersion: String by project
 val lombokVersion: String by project
 val mapstructVersion: String by project
 val lombokMapstructBindingVersion: String by project
+val diffMatchPatchVersion: String by project
 val kafkaMessagingVersion: String by project
 
 dependencies {
@@ -34,8 +42,10 @@ dependencies {
     implementation("io.quarkus:quarkus-jdbc-postgresql")
     implementation("io.quarkus:quarkus-hibernate-orm-panache")
 //    implementation("io.quarkus:quarkus-hibernate-orm")
+    implementation("io.quarkus:quarkus-hibernate-validator")
     implementation("io.quarkus:quarkus-flyway")
-//    implementation("org.flywaydb:flyway-database-postgresql")
+    implementation("org.flywaydb:flyway-database-postgresql")
+    implementation("org.bitbucket.cowwoc:diff-match-patch:${diffMatchPatchVersion}")
 //    implementation("io.quarkus:quarkus-messaging-kafka")
     implementation("com.yatskevich:kafka-messaging:${kafkaMessagingVersion}")
     implementation("org.mapstruct:mapstruct:${mapstructVersion}")
@@ -56,4 +66,16 @@ tasks.withType<Test> {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/test_db"
+    user = "user"
+    password = "pass"
+    baselineOnMigrate = true
+    baselineVersion = "0"
+    locations = arrayOf("classpath:db/migration")
+    schemas = arrayOf("content_creation")
+    createSchemas = true
+    cleanDisabled = false
 }

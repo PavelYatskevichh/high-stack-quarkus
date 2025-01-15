@@ -9,6 +9,16 @@ pluginManagement {
     plugins {
         id(quarkusPluginId) version quarkusPluginVersion
     }
+    resolutionStrategy {
+        eachPlugin {
+            when (requested.id.id) {
+                "org.flywaydb.flyway" -> {
+                    val flywayPluginVersion: String by settings
+                    useVersion(flywayPluginVersion)
+                }
+            }
+        }
+    }
 }
 
 rootProject.name="high-stack-quarkus"
