@@ -46,7 +46,7 @@ dependencies {
     implementation("io.quarkus:quarkus-flyway")
     implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.bitbucket.cowwoc:diff-match-patch:${diffMatchPatchVersion}")
-//    implementation("io.quarkus:quarkus-messaging-kafka")
+    implementation("io.quarkus:quarkus-messaging-kafka")
     implementation("com.yatskevich:kafka-messaging:${kafkaMessagingVersion}")
     implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 
@@ -63,6 +63,7 @@ dependencies {
 tasks.withType<Test> {
     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 }
+
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")

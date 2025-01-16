@@ -29,3 +29,14 @@ quarkus:
     category:
       "com.yatskevich":
         level: DEBUG
+
+kafka:
+  bootstrap:
+    servers: kafka:9092
+  topic: hs-spring
+  groupId: ContentCreation
+mp:
+  messaging:
+    incoming:
+      prices:
+        connector: smallrye-kafka
